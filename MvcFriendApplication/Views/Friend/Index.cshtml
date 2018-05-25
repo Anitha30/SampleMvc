@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MvcFriendApplication.Models.FriendModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<a href="#" class="btn btn-info" onclick="AddNewFriend()">Add New Friend</a> <br /><br />
+@*@Html.ActionLink("Add New Friend", "Create", "Friend")*@
+<a href="#" class="btn btn-info" onclick="LoadFriends()">Show Friend List</a> <br /><br />
+<div id="friendsDiv">
+    <table id="tblfriends" class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FriendID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FriendName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Place)
+            </th>
+            <th>
+            </th>
+        </tr>
+        <tbody id="tbfriends">
+
+        </tbody>
+    </table>
+</div>
+@using (Html.BeginForm())// new { id = "myform" }))
+{
+    @Html.AntiForgeryToken()
+
+<div id="editDiv">
+    @Html.Partial("Edit")
+</div>
+<div id="createDiv">
+</div>
+<div id="deleteDiv">
+    @Html.Partial("Delete")
+</div>
+}
+<script src="~/JS/FriendData.js"></script>

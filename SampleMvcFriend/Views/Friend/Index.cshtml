@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SampleMvcFriend.Models.FriendModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FriendID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FriendName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Place)
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+        if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FriendID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FriendName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { Id=item.FriendID }) |
+                @Html.ActionLink("Delete", "Delete", new { Id=item.FriendID })
+            </td>
+        </tr>
+                }
+            }
+        }
+</table>
