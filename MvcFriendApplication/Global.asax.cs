@@ -7,7 +7,6 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
-using System.Web.Optimization;
 
 namespace MvcFriendApplication
 {
@@ -20,7 +19,7 @@ namespace MvcFriendApplication
             UnityConfig.RegisterComponents();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

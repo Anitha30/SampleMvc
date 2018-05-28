@@ -9,7 +9,6 @@ namespace DataLayer
 {
     public class FriendEntityContext : IFriendEntityContext
     {
-        //FriendListEntities dbContext = new FriendListEntities();
         public static FriendListEntities dbContext = null;
         private static readonly object padlock = new object();
         public static FriendListEntities DbContext
@@ -34,10 +33,10 @@ namespace DataLayer
         public FriendEntityContext()
         {
         }
-        public void AddFriend(Friend entity)
+        public int AddFriend(Friend entity)
         {
             DbContext.Friends.Add(entity);
-            DbContext.SaveChanges();
+            return DbContext.SaveChanges();
         }
 
         public void DeleteFriend(Friend entity)
@@ -57,22 +56,18 @@ namespace DataLayer
             return DbContext.Friends.ToList();
         }
 
-        public void UpdateFriend(Friend entity)
+        public int UpdateFriend(Friend entity)
         {
-            ////DbContext.Entry(entity).State = EntityState.Modified;
-            //DbContext.Entry(entity).CurrentValues.SetValues(entity);
-            //DbContext.SaveChanges();
-
             var entityInDb = DbContext.Friends.Find(entity.FriendId);
 
             if (entityInDb == null)
             {
-                AddFriend(entity);
-                return;
+                return AddFriend(entity);
             }
 
             DbContext.Entry(entityInDb).CurrentValues.SetValues(entity);
             DbContext.Entry(entityInDb).State = EntityState.Modified;
+            return DbContext.SaveChanges();
 
         }
     }

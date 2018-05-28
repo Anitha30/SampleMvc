@@ -41,18 +41,12 @@ namespace MvcFriendApplication.Controllers
         }
 
         [HttpPost]// POST api/<controller>
-        public void Edit([FromBody]FriendModel model)//List<string> input)
+        public void Post([FromBody]FriendModel model)
         {
-            //FriendModel model = new Models.FriendModel() { FriendID = Convert.ToInt32(input[0]), FriendName = input[1], Place = input[2] };
             var entity = _mapper.Map<FriendModel, Friend>(model);
 
             _dbContext.UpdateFriend(entity);
         }
-
-        // POST api/<controller>
-        //public void Post([FromBody]string value)
-        //{
-        //}
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)

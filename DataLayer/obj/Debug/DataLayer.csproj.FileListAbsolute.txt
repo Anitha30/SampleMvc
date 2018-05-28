@@ -7,3 +7,13 @@ D:\Anitha\SampleMvcFriend\DataLayer\bin\Debug\EntityFramework.xml
 D:\Anitha\SampleMvcFriend\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
 D:\Anitha\SampleMvcFriend\DataLayer\obj\Debug\DataLayer.dll
 D:\Anitha\SampleMvcFriend\DataLayer\obj\Debug\DataLayer.pdb
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\bin\Debug\DataLayer.dll.config
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\bin\Debug\DataLayer.dll
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\bin\Debug\DataLayer.pdb
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\bin\Debug\EntityFramework.dll
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\bin\Debug\EntityFramework.xml
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\obj\Debug\DataLayer.dll
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\obj\Debug\DataLayer.pdb
+D:\Anitha\SampleMvcFriend\SampleMvc\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache

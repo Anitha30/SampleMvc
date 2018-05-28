@@ -10,8 +10,8 @@ namespace DataLayer
     {
         IEnumerable<Friend> GetFriends();
         Friend GetFriendById(int id);
-        void AddFriend(Friend entity);
-        void UpdateFriend(Friend entity);
+        int AddFriend(Friend entity);
+        int UpdateFriend(Friend entity);
         void DeleteFriend(Friend entity);
     }
 }

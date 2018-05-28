@@ -15,13 +15,65 @@
 
 
 $(document).ready(function () {
+
+
+    CreateValidation();
+    EditValidation();
     $('#friendsDiv').hide();
     $('#editDiv').hide();
     $('#createDiv').hide();
     $("#deleteDiv").hide();
 
-
 });
+function CreateValidation() {
+    $("form[name='insertFrdForm']").validate({
+        // Specify validation rules
+        rules: {
+            // The key name on the left side is the name attribute
+            // of an input field. Validation rules are defined
+            // on the right side
+            txtnfrdId: "required",
+            txtnfrdName: "required",
+            txtnfrdPlace: { maxlength: 25 }
+        },
+        // Specify validation error messages
+        messages: {
+            txtnfrdId: "Please enter your friend Id",
+            txtnfrdName: "Please enter your friend name",
+            txtnfrdPlace: "Please enter no more than 25 characters"
+        }
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        //submitHandler: function (form) {
+        //    form.submit();
+        //}
+    });
+}
+function EditValidation() {
+    $("form[name='editFrdForm']").validate({
+        // Specify validation rules
+        rules: {
+            // The key name on the left side is the name attribute
+            // of an input field. Validation rules are defined
+            // on the right side
+            FriendID: "required",
+            FriendName: "required",
+            Place: { maxlength: 25 }
+        },
+        // Specify validation error messages
+        messages: {
+            FriendID: "Please enter your friend Id",
+            FriendName: "Please enter your friend name",
+            Place: "Please enter no more than 25 characters"
+        }
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        //submitHandler: function (form) {
+        //    form.submit();
+        //}
+    });
+}
+
 function LoadFriends() {
     debugger;
     $.ajax({
@@ -43,7 +95,7 @@ function LoadFriends() {
 
 
         },
-        error: function (msg) { alert(msg); }
+        error: function (msg) { alert("in load function"); debugger; alert(msg); }
     });
 }
 function EditFriend(id) {
@@ -63,49 +115,45 @@ function EditFriend(id) {
             $('#friendsDiv').hide();
             $('#createDiv').hide();
             $("#deleteDiv").hide();
-
-            //var trHTML = '';
-
-            //trHTML += '<tr><td>' + friendId + '</td><td>' + name +
-            //'</td><td>' + place + '</td>' + '</td></tr>';
-            ////$('#editfr').append(trHTML);
-            //$('#container').html(trHTML)
         },
         error: function (xhr) {
             alert(xhr.responseText);
         }
     });
 }
+$(document).on("click", "#btnEditFriend", function () {
+    debugger;
+    if (!$("form[name='editFrdForm']").valid()) { // Not Valid
+        return false;
+    } else {
+        var friend = {
+            FriendID: $("#txtfrdId").val(),
+            FriendName: $("#txtfrdName").val(),
+            Place: $("#txtfrdPlace").val()
+        };
+        var model = JSON.stringify(friend);
+        $.ajax({
+            type: 'POST',
+            data: model,
+            url: 'http://localhost:57636/api/FriendApi',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                debugger;
+                alert(data);
 
-$("#btnEditFriend").click(function () {
+                LoadFriends();
+                $('#editDiv').hide();
+                $('#friendsDiv').show();
 
-    var friend = {
-        FriendID: $("#txtfrdId").val(),
-        FriendName: $("#txtfrdName").val(),
-        Place: $("#txtfrdPlace").val()
-    };
-    var model = JSON.stringify(friend);
-    //if (CheckRequiredFields()) {
+            },
+            fail: function () {
+                alert('failed');
 
-    //    $('#dvLoader').show();
-    $.ajax({
-        type: 'POST',
-        data: model,
-        url: 'http://localhost:57636/api/FriendApi',
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            LoadFriends();
-            $('#editDiv').hide();
+            }
 
-        },
-        fail: function () {
-            alert('failed');
+        });
 
-        }
-
-    });
-
-    //}
+    }
 
 });
 
@@ -113,51 +161,18 @@ function AddNewFriend() {
     $('#friendsDiv').hide();
     $('#editDiv').hide();
     $("#deleteDiv").hide();
-    $("#createDiv").load('/Friend/Create');
     $('#createDiv').show();
 
 
 };
 
-$("#btnAddFriend").click(function () {
+$(document).on("click", "#btnAddFriend", function () {
     debugger;
-    var friend = {
-        FriendID: $("#txtnfrdId").val(),
-        FriendName: $("#txtnfrdName").val(),
-        Place: $("#txtnfrdPlace").val()
-    };
-    var model = JSON.stringify(friend);
-    $.ajax({
-        type: 'POST',
-        data: model,
-        url: 'http://localhost:57636/api/FriendApi',
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            LoadFriends();
-            $('#editDiv').hide();
-            $('#createDiv').hide();
-            $("#deleteDiv").hide();
+    if (!$("form[name='insertFrdForm']").valid()) { // Not Valid
+        return false;
+    } else {
 
-        },
-        fail: function () {
-            alert('failed');
-        }
-
-    });
-});
-
-
-function SaveNewFriend() {
-    debugger;
-   // var $form = $("#myform");
-   // $form.action = "/Area/MyController/" + action;
-
-    //$.validator.unobtrusive.parse($form);
-    //$form.validate();
-
-    //if ($form.valid()) {
-    //    //    $form.submit();
-        //}
+        debugger;
         var friend = {
             FriendID: $("#txtnfrdId").val(),
             FriendName: $("#txtnfrdName").val(),
@@ -170,10 +185,14 @@ function SaveNewFriend() {
             url: 'http://localhost:57636/api/FriendApi',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                alert(data + "Add");
+                debugger;
                 LoadFriends();
                 $('#editDiv').hide();
                 $('#createDiv').hide();
                 $("#deleteDiv").hide();
+                $('#friendsDiv').show();
+
 
             },
             fail: function () {
@@ -182,7 +201,8 @@ function SaveNewFriend() {
 
         });
     }
-//}
+
+});
 
 function DeleteFriend(id) {
     $.ajax({
@@ -201,12 +221,6 @@ function DeleteFriend(id) {
             $('#friendsDiv').hide();
             $('#createDiv').hide();
 
-            //var trHTML = '';
-
-            //trHTML += '<tr><td>' + friendId + '</td><td>' + name +
-            //'</td><td>' + place + '</td>' + '</td></tr>';
-            ////$('#editfr').append(trHTML);
-            //$('#container').html(trHTML)
         },
         error: function (xhr) {
             alert(xhr.responseText);
@@ -214,7 +228,6 @@ function DeleteFriend(id) {
     });
 }
 
-//$("#btnDeleteFriend").click(function () {
 function ConfirmDeleteFriend() {
     debugger;
     var friendId = $("#txtdfrdId").text();
@@ -236,5 +249,3 @@ function ConfirmDeleteFriend() {
     });
 
 }
-
-//});
